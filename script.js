@@ -17,18 +17,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize PageFlip Book
     const albumBook = document.getElementById('albumBook');
-    if(albumBook && typeof St !== 'undefined') {
+    if (albumBook && typeof St !== 'undefined') {
         const winW = window.innerWidth;
         const isMobile = winW < 768;
-        
+
         // Dynamic sizing for better mobile experience
         let bookW = 450;
         let bookH = 550;
-        
-        if(winW < 480) {
+
+        if (winW < 480) {
             bookW = winW * 0.92;
             bookH = bookW * 1.3; // Maintain aspect ratio
-        } else if(isMobile) {
+        } else if (isMobile) {
             bookW = 380;
             bookH = 480;
         }
@@ -43,14 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
             maxHeight: 750,
             maxShadowOpacity: 0.5,
             showCover: true,
-            mobileScrollSupport: true 
+            mobileScrollSupport: true
         });
 
         pageFlip.loadFromHTML(document.querySelectorAll('.page'));
 
         const btnPrev = document.getElementById('book-prev');
         const btnNext = document.getElementById('book-next');
-        
+
         if (btnPrev) btnPrev.addEventListener('click', () => pageFlip.flipPrev());
         if (btnNext) btnNext.addEventListener('click', () => pageFlip.flipNext());
     }
@@ -63,23 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
 function initHeroDecorations() {
     const container = document.getElementById('hero-decorations');
     if (!container) return;
-    
+
     const items = ['🎈', '🎁', '✨', '💖', '⭐', '🌸', '🍭'];
     const count = window.innerWidth < 768 ? 8 : 15;
     const colors = ['#ff3366', '#ff85a2', '#ffeb3b', '#4caf50', '#2196f3', '#9c27b0'];
-    
+
     for (let i = 0; i < count; i++) {
         const item = document.createElement('div');
         item.classList.add('decoration-item');
         item.innerHTML = items[i % items.length];
-        
+
         const top = Math.random() * 85;
         const left = Math.random() * 95;
-        const size = Math.random() * 1.5 + 1.5; 
+        const size = Math.random() * 1.5 + 1.5;
         const delay = Math.random() * 5;
         const duration = Math.random() * 4 + 6;
         const color = colors[Math.floor(Math.random() * colors.length)];
-        
+
         item.style.top = `${top}%`;
         item.style.left = `${left}%`;
         item.style.fontSize = `${size}rem`;
@@ -89,7 +89,7 @@ function initHeroDecorations() {
             item.style.color = color;
             item.style.textShadow = `0 0 10px ${color}`;
         }
-        
+
         container.appendChild(item);
     }
 }
@@ -106,9 +106,9 @@ const revealCallback = (entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
-            
+
             // Fire confetti only once when message section appears
-            if(entry.target.classList.contains('glass-card') && !entry.target.dataset.confettiFired) {
+            if (entry.target.classList.contains('glass-card') && !entry.target.dataset.confettiFired) {
                 fireConfetti();
                 entry.target.dataset.confettiFired = true;
             }
@@ -132,18 +132,18 @@ function createHeart() {
     const heart = document.createElement('div');
     heart.classList.add('heart');
     heart.innerHTML = '❤️';
-    
+
     // Random position and size
     const left = Math.random() * 100;
     const size = Math.random() * 20 + 10;
     const duration = Math.random() * 5 + 5;
-    
+
     heart.style.left = `${left}vw`;
     heart.style.fontSize = `${size}px`;
     heart.style.animationDuration = `${duration}s`;
-    
+
     particlesContainer.appendChild(heart);
-    
+
     // Remove after animation completes
     setTimeout(() => {
         heart.remove();
@@ -153,7 +153,7 @@ function createHeart() {
 setInterval(createHeart, 500);
 
 // Init initial hearts
-for(let i=0; i<15; i++) {
+for (let i = 0; i < 15; i++) {
     setTimeout(createHeart, Math.random() * 2000);
 }
 
@@ -165,19 +165,19 @@ function fireConfetti() {
     var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
     function randomInRange(min, max) {
-      return Math.random() * (max - min) + min;
+        return Math.random() * (max - min) + min;
     }
 
-    var interval = setInterval(function() {
-      var timeLeft = animationEnd - Date.now();
+    var interval = setInterval(function () {
+        var timeLeft = animationEnd - Date.now();
 
-      if (timeLeft <= 0) {
-        return clearInterval(interval);
-      }
+        if (timeLeft <= 0) {
+            return clearInterval(interval);
+        }
 
-      var particleCount = 50 * (timeLeft / duration);
-      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+        var particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
     }, 250);
 }
 
@@ -195,28 +195,28 @@ document.body.style.overflow = 'hidden';
 function openSurprise() {
     const giftWrapper = document.getElementById('gift-wrapper');
     const countdownDisplay = document.getElementById('countdown-display');
-    
+
     // Hide gift, show countdown
-    if(giftWrapper) giftWrapper.style.display = 'none';
-    if(countdownDisplay) countdownDisplay.style.display = 'block';
+    if (giftWrapper) giftWrapper.style.display = 'none';
+    if (countdownDisplay) countdownDisplay.style.display = 'block';
 
     let count = 5;
     countdownDisplay.innerText = count;
 
     const timer = setInterval(() => {
         count--;
-        if(count > 0) {
+        if (count > 0) {
             countdownDisplay.innerText = count;
         } else {
             clearInterval(timer);
             // Hide countdown container
-            if(countdownDisplay) countdownDisplay.style.display = 'none';
+            if (countdownDisplay) countdownDisplay.style.display = 'none';
             revealFinalContent();
         }
     }, 1000);
 
     // Start music early to set the mood
-    if(bgm && !isPlaying) {
+    if (bgm && !isPlaying) {
         bgm.play().then(() => {
             isPlaying = true;
         }).catch(e => console.log(e));
@@ -226,29 +226,29 @@ function openSurprise() {
 function revealFinalContent() {
     // Hide overlay
     doorOverlay.classList.add('hidden');
-    
+
     // Trigger cinematic entrance
     const heroContent = document.querySelector('.hero-content');
-    if(heroContent) heroContent.classList.add('entrance-zoom');
-    
+    if (heroContent) heroContent.classList.add('entrance-zoom');
+
     // Burst rose petals
-    for(let i=0; i<60; i++) {
+    for (let i = 0; i < 60; i++) {
         setTimeout(createPetal, i * 20);
     }
-    
+
     // Restore scrolling
     document.body.style.overflow = 'auto';
-    
+
     // Remove it from DOM completely after animation
     setTimeout(() => {
-        if(doorOverlay) doorOverlay.style.display = 'none';
-        
+        if (doorOverlay) doorOverlay.style.display = 'none';
+
         // Fire initial confetti when first entering the site
         fireConfetti();
     }, 1000);
 }
 
-if(openBtn) {
+if (openBtn) {
     openBtn.addEventListener('click', openSurprise);
 }
 
@@ -260,20 +260,20 @@ if(openBtn) {
 // --- Firefly System ---
 function createFirefly() {
     const container = document.getElementById('firefly-container');
-    if(!container) return;
+    if (!container) return;
     const firefly = document.createElement('div');
     firefly.classList.add('firefly');
-    
+
     const size = Math.random() * 4 + 2;
     const duration = Math.random() * 10 + 10;
     const driftX = (Math.random() - 0.5) * 200;
-    
+
     firefly.style.left = Math.random() * 100 + 'vw';
     firefly.style.width = size + 'px';
     firefly.style.height = size + 'px';
     firefly.style.setProperty('--drift-x', driftX + 'px');
     firefly.style.animationDuration = duration + 's, 2s';
-    
+
     container.appendChild(firefly);
     setTimeout(() => firefly.remove(), duration * 1000);
 }
@@ -295,7 +295,7 @@ async function typeWriter() {
     hasTyped = true;
     const container = document.getElementById('typewriter-msg');
     if (!container) return;
-    
+
     for (let line of messageLines) {
         const lineEl = document.createElement('div');
         // If line is empty, it's a paragraph break - make it a full line height
@@ -305,14 +305,14 @@ async function typeWriter() {
             lineEl.style.marginBottom = "0.5rem";
         }
         container.appendChild(lineEl);
-        
+
         for (let i = 0; i < line.length; i++) {
             lineEl.innerHTML += line.charAt(i);
             await new Promise(r => setTimeout(r, 40));
         }
-        await new Promise(r => setTimeout(r, 300)); 
+        await new Promise(r => setTimeout(r, 300));
     }
-    
+
     // Show signature after typing is done
     const signature = document.querySelector('.signature');
     if (signature) {
@@ -322,39 +322,39 @@ async function typeWriter() {
 
 // Update the reveal observer to trigger typewriter
 const msgObserver = new IntersectionObserver((entries) => {
-    if(entries[0].isIntersecting) {
+    if (entries[0].isIntersecting) {
         // Longer delay to ensure user has stopped scrolling and settled on the section
         setTimeout(() => {
             typeWriter();
-        }, 1200); 
+        }, 1200);
         msgObserver.disconnect();
     }
-}, { 
+}, {
     // Use a tighter threshold and look at the whole message section
-    threshold: 0.6, 
+    threshold: 0.6,
     // rootMargin ensures it's well within the viewport from the bottom
     rootMargin: "0px 0px -10% 0px"
 });
 
 const messageSection = document.getElementById('message');
-if(messageSection) msgObserver.observe(messageSection);
+if (messageSection) msgObserver.observe(messageSection);
 
 // --- Photo Heart Burst ---
 function createBurstHeart(x, y) {
     const heart = document.createElement('div');
     heart.innerHTML = '❤️';
     heart.classList.add('burst-heart');
-    
+
     const tx = (Math.random() - 0.5) * 200;
     const ty = (Math.random() - 1) * 200;
     const tr = Math.random() * 360;
-    
+
     heart.style.left = x + 'px';
     heart.style.top = y + 'px';
     heart.style.setProperty('--tx', tx + 'px');
     heart.style.setProperty('--ty', ty + 'px');
     heart.style.setProperty('--tr', tr + 'deg');
-    
+
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 1000);
 }
@@ -362,7 +362,7 @@ function createBurstHeart(x, y) {
 document.querySelectorAll('.page-content img').forEach(item => {
     item.addEventListener('click', (e) => {
         // Prevent event bubbling if necessary
-        for(let i=0; i<8; i++) {
+        for (let i = 0; i < 8; i++) {
             createBurstHeart(e.clientX, e.clientY);
         }
     });
@@ -372,11 +372,11 @@ document.querySelectorAll('.page-content img').forEach(item => {
 const surpriseBtn = document.getElementById('surpriseBtn');
 const hiddenMsg = document.getElementById('hidden-love-msg');
 
-if(surpriseBtn) {
+if (surpriseBtn) {
     surpriseBtn.addEventListener('click', () => {
         surpriseBtn.style.display = 'none';
         hiddenMsg.classList.add('active');
-        
+
         // Massive celebratory confetti
         const end = Date.now() + (5 * 1000);
         const colors = ['#ff3366', '#ffffff', '#ff85a2', '#ffeb3b'];
@@ -403,16 +403,16 @@ if(surpriseBtn) {
         }());
 
         // Heart emoji explosion in the center
-        for(let i=0; i<30; i++) {
+        for (let i = 0; i < 30; i++) {
             setTimeout(() => {
-                createBurstHeart(window.innerWidth/2, window.innerHeight/2);
+                createBurstHeart(window.innerWidth / 2, window.innerHeight / 2);
             }, i * 80);
         }
 
         // Reveal the Secret Gift Section after a delay
         setTimeout(() => {
             const giftSection = document.getElementById('gift-section');
-            if(giftSection) {
+            if (giftSection) {
                 giftSection.style.display = 'block';
                 giftSection.scrollIntoView({ behavior: 'smooth' });
             }
@@ -429,10 +429,10 @@ const orderConfirmedView = document.getElementById('order-confirmed-view');
 // Typing simulation function
 async function typeFill(elementId, value) {
     const el = document.getElementById(elementId);
-    if(!el) return;
+    if (!el) return;
     el.classList.add('filling');
     el.value = "";
-    for(let i=0; i<value.length; i++) {
+    for (let i = 0; i < value.length; i++) {
         el.value += value.charAt(i);
         await new Promise(r => setTimeout(r, 50));
     }
@@ -440,10 +440,10 @@ async function typeFill(elementId, value) {
     await new Promise(r => setTimeout(r, 400));
 }
 
-if(placeOrderBtn) {
+if (placeOrderBtn) {
     placeOrderBtn.addEventListener('click', async () => {
         // Switch to checkout view
-        if(giftShopView && checkoutView) {
+        if (giftShopView && checkoutView) {
             giftShopView.style.display = 'none';
             checkoutView.style.display = 'block';
             checkoutView.scrollIntoView({ behavior: 'smooth' });
@@ -455,7 +455,7 @@ if(placeOrderBtn) {
         const processingStatus = document.getElementById('processing-status');
 
         await new Promise(r => setTimeout(r, 800));
-        
+
         statusText.innerText = "Filling Recipient Details...";
         await typeFill('checkout-name', "My Beautiful Rabbit 🐰");
         progressFill.style.width = "30%";
@@ -471,33 +471,33 @@ if(placeOrderBtn) {
         // Final Processing
         statusText.innerText = "Securing Order with Love...";
         processingStatus.style.display = 'block';
-        
+
         let progress = 85;
         const interval = setInterval(() => {
             progress += 1;
             progressFill.style.width = progress + "%";
-            if(progress >= 100) {
+            if (progress >= 100) {
                 clearInterval(interval);
                 // Details loaded, show the confirm button
                 setTimeout(() => {
                     const confirmOrderBtn = document.getElementById('confirmOrderBtn');
-                    if(confirmOrderBtn) {
+                    if (confirmOrderBtn) {
                         statusText.innerText = "Order Ready! Please confirm below. ❤️";
                         confirmOrderBtn.style.setProperty('display', 'block', 'important');
                         confirmOrderBtn.scrollIntoView({ behavior: 'smooth' });
-                        
+
                         // Handler for final confirmation
                         confirmOrderBtn.style.setProperty('display', 'block', 'important');
                         confirmOrderBtn.disabled = true; // Disabled initially
                         confirmOrderBtn.style.opacity = "0.5";
                         confirmOrderBtn.innerText = "Please Enter Your Email... ❤️";
                         confirmOrderBtn.scrollIntoView({ behavior: 'smooth' });
-                        
+
                         const emailInput = document.getElementById('checkout-email');
-                        
+
                         // Check email validity in real-time
                         emailInput.addEventListener('input', () => {
-                            if(emailInput.checkValidity() && emailInput.value.length > 5) {
+                            if (emailInput.checkValidity() && emailInput.value.length > 5) {
                                 confirmOrderBtn.disabled = false;
                                 confirmOrderBtn.style.opacity = "1";
                                 confirmOrderBtn.innerText = "Confirm Order & Receive Wish ❤️";
@@ -512,15 +512,15 @@ if(placeOrderBtn) {
 
                         // Handler for final confirmation
                         confirmOrderBtn.onclick = async () => {
-                            if(confirmOrderBtn.disabled) return;
-                            
+                            if (confirmOrderBtn.disabled) return;
+
                             // Show processing again for real email sending
                             confirmOrderBtn.disabled = true;
                             confirmOrderBtn.innerText = "Sending your wish to your inbox... ✨";
-                            
+
                             const recipientEmail = emailInput.value;
                             const recipientName = document.getElementById('checkout-name').value || "Princess";
-                            
+
                             try {
                                 // SEND THE REAL EMAIL
                                 await sendRealEmail(recipientEmail, recipientName);
@@ -531,7 +531,7 @@ if(placeOrderBtn) {
                                 alert("Email sending failed! Error: " + (error.text || error.message || "Unknown error") + "\n\nPlease check your EmailJS settings.");
                             }
 
-                            if(checkoutView && orderConfirmedView) {
+                            if (checkoutView && orderConfirmedView) {
                                 checkoutView.style.display = 'none';
                                 orderConfirmedView.style.display = 'block';
                                 fireConfetti();
@@ -550,28 +550,28 @@ if(placeOrderBtn) {
 // Rose Petals
 function createPetal() {
     const container = document.getElementById('petal-container');
-    if(!container) return;
+    if (!container) return;
     const petal = document.createElement('div');
     petal.classList.add('petal');
-    
+
     const size = Math.random() * 15 + 10;
     const left = Math.random() * 100;
     const duration = Math.random() * 3 + 4;
     const delay = Math.random() * 2;
-    
+
     petal.style.left = left + 'vw';
     petal.style.width = size + 'px';
     petal.style.height = (size * 0.8) + 'px';
     petal.style.animationDuration = duration + 's';
     petal.style.animationDelay = delay + 's';
-    
+
     container.appendChild(petal);
     setTimeout(() => petal.remove(), (duration + delay) * 1000);
 }
 
 // Sparkle Cursor
 document.addEventListener('mousemove', (e) => {
-    if(Math.random() > 0.1) return; // Limit sparkle count
+    if (Math.random() > 0.1) return; // Limit sparkle count
     const sparkle = document.createElement('div');
     sparkle.classList.add('sparkle');
     sparkle.style.left = e.clientX + 'px';
@@ -594,7 +594,7 @@ document.addEventListener('touchmove', (e) => {
 // (Heart timeline observer removed)
 
 // --- EmailJS Integration Activated ---
-(function(){
+(function () {
     emailjs.init("MBD_Ss2cr6umocbrI");
 })();
 
@@ -606,5 +606,5 @@ async function sendRealEmail(email, name) {
         message: "Wishing you a birthday as beautiful as your heart. May every dream of yours come true, and may our love grow stronger with every passing second. You are my everything! ❤️✨", // Matches {{message}}
         time: new Date().toLocaleString() // Matches {{time}} in the template
     };
-    return emailjs.send('service_x2d2tt8', 'template_9r1wqgh', templateParams);
+    return emailjs.send("service_e8ggzij", "template_79nj90d", templateParams);
 }
