@@ -580,8 +580,9 @@ document.addEventListener('touchmove', (e) => {
 
 async function sendRealEmail(email, name) {
     const templateParams = {
-        to_email: email,
-        to_name: name,
+        email: email, // Matches {{email}} in template settings
+        name: name,   // Matches {{name}} in template body
+        order_id: "LOVE-2026-INFINITY", // Matches {{order_id}} in template
         wish_message: "Wishing you a birthday as beautiful as your heart. May every dream of yours come true, and may our love grow stronger with every passing second. You are my everything! ❤️✨"
     };
     return emailjs.send('service_x2d2tt8', 'template_6linptw', templateParams);
