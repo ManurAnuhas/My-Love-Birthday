@@ -339,19 +339,21 @@ async function typeWriter() {
 // Update the reveal observer to trigger typewriter
 const msgObserver = new IntersectionObserver((entries) => {
     if(entries[0].isIntersecting) {
-        // Small delay after scrolling to start typing naturally
+        // Longer delay to ensure user has stopped scrolling and settled on the section
         setTimeout(() => {
             typeWriter();
-        }, 500);
+        }, 1200); 
         msgObserver.disconnect();
     }
 }, { 
-    threshold: 0.8, // Only start when 80% visible
-    rootMargin: "-20px" // Slight offset to ensure user is looking at it
+    // Use a tighter threshold and look at the whole message section
+    threshold: 0.6, 
+    // rootMargin ensures it's well within the viewport from the bottom
+    rootMargin: "0px 0px -10% 0px"
 });
 
-const typeContainer = document.getElementById('typewriter-msg');
-if(typeContainer) msgObserver.observe(typeContainer);
+const messageSection = document.getElementById('message');
+if(messageSection) msgObserver.observe(messageSection);
 
 // --- Photo Heart Burst ---
 function createBurstHeart(x, y) {
