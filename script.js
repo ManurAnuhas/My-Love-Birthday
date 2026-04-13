@@ -527,7 +527,8 @@ if(placeOrderBtn) {
                                 console.log("Email successfully sent to:", recipientEmail);
                             } catch (error) {
                                 console.error("Email sending failed:", error);
-                                // We still proceed to the success screen so the user experience isn't broken
+                                // Show a visible warning if sending fails
+                                alert("Email sending failed! Error: " + (error.text || error.message || "Unknown error") + "\n\nPlease check your EmailJS Service ID and Template ID settings.");
                             }
 
                             if(checkoutView && orderConfirmedView) {
