@@ -761,19 +761,6 @@ section, header {
     transition: all 0.3s;
 }
 
-.form-group input:not([readonly]) {
-    background: #fff;
-    border: 2px solid var(--primary-color);
-    box-shadow: 0 0 15px rgba(255, 51, 102, 0.1);
-    cursor: text;
-}
-
-.form-group input:not([readonly]):focus {
-    outline: none;
-    border-color: #ff0044;
-    box-shadow: 0 0 20px rgba(255, 51, 102, 0.2);
-    background: #fff;
-}
 
 .form-group input.filling {
     background: #fff9fb;
