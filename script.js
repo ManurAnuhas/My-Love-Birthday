@@ -186,7 +186,6 @@ function fireConfetti() {
 let isPlaying = false;
 const bgm = document.getElementById('bgm');
 if (bgm) bgm.volume = 0.3; // Reducing volume to 30%
-const musicBtn = document.getElementById('musicBtn');
 const doorOverlay = document.getElementById('door-overlay');
 const openBtn = document.getElementById('giftClickArea');
 
@@ -220,7 +219,6 @@ function openSurprise() {
     if(bgm && !isPlaying) {
         bgm.play().then(() => {
             isPlaying = true;
-            musicBtn.innerHTML = '⏸️ Pause Music';
         }).catch(e => console.log(e));
     }
 }
@@ -254,20 +252,6 @@ if(openBtn) {
     openBtn.addEventListener('click', openSurprise);
 }
 
-function toggleMusic() {
-    if(!bgm) return;
-    if (isPlaying) {
-        bgm.pause();
-        musicBtn.innerHTML = '🎵 Play Music';
-    } else {
-        bgm.play().catch(e => {
-            console.log("Audio play failed:", e);
-            alert("Please provide the song file in the webpage folder!");
-        });
-        musicBtn.innerHTML = '⏸️ Pause Music';
-    }
-    isPlaying = !isPlaying;
-}
 
 
 // --- Tree Timeline Replaces Heart Collage ---
