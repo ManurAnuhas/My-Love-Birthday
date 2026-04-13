@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="si">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love ❤️</title>
+    <meta name="description" content="A special birthday surprise filled with our beautiful memories and love.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Happy Birthday My Love ❤️">
+    <meta property="og:description" content="A special digital gift for your special day.">
+    <meta property="og:image" content="Memories/DSC06268.jpg">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Door/Gift Overlay -->
+    <div id="door-overlay">
+        <div class="door-content" id="giftClickArea">
+            <div class="premium-gift-wrapper" id="gift-wrapper">
+                <img src="premium_gift.png" alt="Gift Box" class="premium-gift-img">
+                <p class="click-hint blink">Click to open your surprise! ❤️</p>
+            </div>
+            <div id="countdown-display" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div id="particles"></div>
+    <div id="firefly-container"></div>
+    <div id="petal-container"></div>
+
+    <header class="hero">
+        <div class="hero-decorations" id="hero-decorations">
+            <!-- Dynamic decorations like balloons/gifts will be injected here -->
+        </div>
+        <div class="hero-content">
+            <h1 class="fade-in-up shimmer-text">Happy Birthday</h1>
+            <h2 class="fade-in-up delay-1 shimmer-text">My Princess ❤️</h2>
+            <p class="fade-in-up delay-2">Wishing you the happiest birthday filled with joy, laughter, and endless love!
+            </p>
+            <button class="scroll-btn fade-in-up delay-3" onclick="scrollToMemories()">Scroll Down</button>
+        </div>
+    </header>
+
+    <section class="memories" id="memories">
+        <h2 class="section-title reveal">Our Beautiful Memories</h2>
+        <div class="album-container reveal">
+            <div id="albumBook">
+                <!-- Cover Page -->
+                <div class="page page-cover page-cover-top" data-density="hard">
+                    <div class="page-content">
+                        <h2>Our Memories</h2>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/DSC06268.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260115-WA0056.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260115-WA0057.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260115-WA0063.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260115-WA0088.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260121-WA0047.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260122-WA0131.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260122-WA0205.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260123-WA0025.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260123-WA0083.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260123-WA0085.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260123-WA0202.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260123-WA0203.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260214-WA0017.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260215-WA0010.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260215-WA0011.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260215-WA0014.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260215-WA0069.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260215-WA0071.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260302-WA0066.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260404-WA0033.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG-20260404-WA0060.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/IMG_5403.jpg" alt="Memory" loading="lazy"
+                            onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/WhatsApp Image 2026-04-13 at 7.05.11 PM (1).jpg"
+                            alt="Memory" loading="lazy" onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/WhatsApp Image 1767242039779.jpg" alt="Memory"
+                            loading="lazy" onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/WhatsApp Image 2026-04-13 at 7.05.11 PM.jpg"
+                            alt="Memory" loading="lazy" onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <div class="page">
+                    <div class="page-content"><img src="Memories/WhatsApp Image 2026-04-13 at 7.05.11 PM (2).jpg"
+                            alt="Memory" loading="lazy" onerror="this.closest('.page').style.display='none'"></div>
+                </div>
+                <!-- Back Cover -->
+                <div class="page page-cover page-cover-bottom" data-density="hard">
+                    <div class="page-content">
+                        <h2>The End</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="book-nav">
+                <button id="book-prev" class="book-btn">&lt; Prev</button>
+                <button id="book-next" class="book-btn">Next &gt;</button>
+            </div>
+            <p class="book-instruction">Swipe or click to turn pages!</p>
+        </div>
+    </section>
+
+    <section class="message-section" id="message">
+        <div class="glass-card reveal">
+            <h2>To My Rabbit...</h2>
+            <p id="typewriter-msg" class="typewriter-text"></p>
+            <p class="signature">With all my love, <br>Yours...</p>
+        </div>
+    </section>
+
+    <section class="final-surprise" id="final-surprise">
+        <button class="surprise-reveal-btn" id="surpriseBtn">One More Thing... ❤️</button>
+        <div id="hidden-love-msg" class="hidden-msg-container">
+            <h1 class="giant-love">I Love You</h1>
+            <p>Hamadama oyage me lassanama lassana hinawa me wagema tiyenn ona. Hamadama me wagema sathutin innath one.
+                Hamadamatama oya magema witharai ❤️</p>
+            <p class="scroll-hint blink">Wait... there's one more secret below! ⬇️</p>
+        </div>
+    </section>
+
+    <section class="gift-section" id="gift-section" style="display: none;">
+        <div class="gift-container reveal">
+            <div id="gift-shop-view">
+                <h2 class="section-title">A Secret for My Rabbit... 🎁</h2>
+                <div class="gift-card">
+                    <div class="gift-img-wrapper">
+                        <img src="secret_gift_box.png" alt="Secret Gift" id="secret-gift-img">
+                        <div class="gift-badge">SECRET</div>
+                    </div>
+                    <div class="gift-info">
+                        <h3>Mystery Surprise Gift</h3>
+                        <p class="gift-desc">A special curated surprise, chosen with all my love. Something that will
+                            make your heart smile even more.</p>
+                        <div class="gift-meta">
+                            <span class="price">Priceless</span>
+                            <span class="stock">In Stock (Only 1 for you)</span>
+                        </div>
+                        <button class="order-btn" id="placeOrderBtn">Place Order Now ❤️</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="checkout-view" style="display: none;">
+                <h2 class="section-title">Finalizing Your Secret Order... 🎀</h2>
+                <div class="checkout-card">
+                    <div class="checkout-header">
+                        <div class="step-indicator">
+                            <span class="step active">1. Shop</span>
+                            <span class="step active">2. Checkout</span>
+                            <span class="step">3. Done</span>
+                        </div>
+                    </div>
+                    <form id="fake-checkout-form">
+                        <div class="form-group">
+                            <label>Recipient Name</label>
+                            <input type="text" id="checkout-name" placeholder="Waiting..." readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Delivery Address</label>
+                            <input type="text" id="checkout-address" placeholder="Searching..." readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Delivery Contact</label>
+                            <input type="text" id="checkout-contact" placeholder="Calculating..." readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Shipping Method</label>
+                            <input type="text" value="Express Love Delivery" readonly>
+                        </div>
+                    </form>
+                    <div class="processing-status" id="processing-status" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <p id="status-text">Verifying details...</p>
+                    </div>
+
+                    <button id="confirmOrderBtn" class="order-btn" style="display: none; margin-top: 2rem;">Confirm
+                        Order Now ❤️</button>
+                </div>
+            </div>
+
+            <div id="order-confirmed-view" style="display: none;">
+                <div class="receipt-card">
+                    <div class="check-icon">✓</div>
+                    <h2>Order Placed! 🎉</h2>
+                    <p class="receipt-subtitle">Your secret surprise is being prepared with extra love.</p>
+
+                    <div class="receipt-details">
+                        <div class="detail-row">
+                            <span>Order ID:</span>
+                            <span>#LOVE-2026-INFINITY</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Recipient:</span>
+                            <span>My Favorite Rabbit 🐰</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Status:</span>
+                            <span class="status-badge">Hand-crafted with Care</span>
+                        </div>
+                        <div class="detail-row delivery-row">
+                            <span>Delivery Date:</span>
+                            <span class="hidden-date">xx-xx-2026 💗</span>
+                        </div>
+                    </div>
+
+                    <div class="receipt-footer">
+                        <p>I can't wait to see your smile when this arrives!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <audio id="bgm" src="Ed Sheeran - Perfect - LatinHype.mp3" loop autoplay></audio>
+
+    <div class="music-control" id="musicBtn" onclick="toggleMusic()">
+        🎵 Play Music
+    </div>
+
+    <!-- PageFlip & Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
