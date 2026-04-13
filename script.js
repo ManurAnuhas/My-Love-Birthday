@@ -600,12 +600,11 @@ document.addEventListener('touchmove', (e) => {
 
 async function sendRealEmail(email, name) {
     const templateParams = {
-        email: email, // Matches {{email}} in Reply-To
         name: name,   // Matches {{name}} in the message
-        title: "Happy Birthday My Love! ❤️", // Matches {{title}} in subject
-        message: "Wishing you a birthday as beautiful as your heart. May every dream of yours come true, and may our love grow stronger with every passing second. You are my everything! ❤️✨", // Matches {{message}}
-        time: new Date().toLocaleString() // Matches {{time}} in the template
+        message: "You are my happiness, my peace, and the sweetest part of my life. Every moment with you is special, and today is all about celebrating the amazing person you are. Happy Birthday, my love. I will always cherish you and love you more than words can ever say. 💖",
+        time: new Date().toLocaleString(),
+        email: email  // This is her email address typed on the site
     };
-    // Confirmed Template ID from your Settings screenshot
-    return emailjs.send('service_x2d2tt8', 'template_97nhz1e', templateParams);
+    // Using your latest Service ID and Template ID
+    return emailjs.send('service_e8ggzij', 'template_9r1wqgh', templateParams);
 }
