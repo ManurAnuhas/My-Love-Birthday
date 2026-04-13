@@ -606,6 +606,6 @@ async function sendRealEmail(email, name) {
         message: "Wishing you a birthday as beautiful as your heart. May every dream of yours come true, and may our love grow stronger with every passing second. You are my everything! ❤️✨", // Matches {{message}}
         time: new Date().toLocaleString() // Matches {{time}} in the template
     };
-    // Note: If you have a different Template ID for this new template, update it below
-    return emailjs.send('service_x2d2tt8', 'template_9r1wqgh', templateParams);
+    // Confirmed Template ID from your Settings screenshot
+    return emailjs.send('service_x2d2tt8', 'template_97nhz1e', templateParams);
 }
