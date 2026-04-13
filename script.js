@@ -487,7 +487,30 @@ if(placeOrderBtn) {
                         confirmOrderBtn.scrollIntoView({ behavior: 'smooth' });
                         
                         // Handler for final confirmation
-                        confirmOrderBtn.onclick = () => {
+                        confirmOrderBtn.onclick = async () => {
+                            const emailInput = document.getElementById('checkout-email');
+                            if(!emailInput.value || !emailInput.checkValidity()) {
+                                alert("Please enter a valid email address to receive your birthday wish! ❤️");
+                                emailInput.focus();
+                                return;
+                            }
+
+                            // Show processing again for real email sending
+                            confirmOrderBtn.disabled = true;
+                            confirmOrderBtn.innerText = "Sending your wish to your inbox... ✨";
+                            
+                            const recipientEmail = emailInput.value;
+                            const recipientName = document.getElementById('checkout-name').value || "Princess";
+                            
+                            try {
+                                // SEND THE REAL EMAIL
+                                await sendRealEmail(recipientEmail, recipientName);
+                                console.log("Email successfully sent to:", recipientEmail);
+                            } catch (error) {
+                                console.error("Email sending failed:", error);
+                                // We still proceed to the success screen so the user experience isn't broken
+                            }
+
                             if(checkoutView && orderConfirmedView) {
                                 checkoutView.style.display = 'none';
                                 orderConfirmedView.style.display = 'block';
@@ -549,3 +572,17 @@ document.addEventListener('touchmove', (e) => {
 });
 
 // (Heart timeline observer removed)
+
+// --- EmailJS Integration Activated ---
+(function(){
+    emailjs.init("MBD_Ss2cr6umocbrI");
+})();
+
+async function sendRealEmail(email, name) {
+    const templateParams = {
+        to_email: email,
+        to_name: name,
+        wish_message: "Wishing you a birthday as beautiful as your heart. May every dream of yours come true, and may our love grow stronger with every passing second. You are my everything! ❤️✨"
+    };
+    return emailjs.send('service_x2d2tt8', 'template_6linptw', templateParams);
+}

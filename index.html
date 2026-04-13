@@ -17,6 +17,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;600&display=swap"
         rel="stylesheet">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -243,6 +245,10 @@
                         <div class="form-group">
                             <label>Delivery Contact</label>
                             <input type="text" id="checkout-contact" placeholder="Calculating..." readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address (For Confirmation Wish)</label>
+                            <input type="email" id="checkout-email" placeholder="Type your email here... ❤️" required>
                         </div>
                         <div class="form-group">
                             <label>Shipping Method</label>
