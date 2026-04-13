@@ -487,7 +487,50 @@ if(placeOrderBtn) {
                         confirmOrderBtn.scrollIntoView({ behavior: 'smooth' });
                         
                         // Handler for final confirmation
-                        confirmOrderBtn.onclick = () => {
+                        confirmOrderBtn.style.setProperty('display', 'block', 'important');
+                        confirmOrderBtn.disabled = true; // Disabled initially
+                        confirmOrderBtn.style.opacity = "0.5";
+                        confirmOrderBtn.innerText = "Please Enter Your Email... ❤️";
+                        confirmOrderBtn.scrollIntoView({ behavior: 'smooth' });
+                        
+                        const emailInput = document.getElementById('checkout-email');
+                        
+                        // Check email validity in real-time
+                        emailInput.addEventListener('input', () => {
+                            if(emailInput.checkValidity() && emailInput.value.length > 5) {
+                                confirmOrderBtn.disabled = false;
+                                confirmOrderBtn.style.opacity = "1";
+                                confirmOrderBtn.innerText = "Confirm Order & Receive Wish ❤️";
+                                emailInput.style.borderColor = "#4caf50";
+                            } else {
+                                confirmOrderBtn.disabled = true;
+                                confirmOrderBtn.style.opacity = "0.5";
+                                confirmOrderBtn.innerText = "Please Enter Your Email... ❤️";
+                                emailInput.style.borderColor = "#ff3366";
+                            }
+                        });
+
+                        // Handler for final confirmation
+                        confirmOrderBtn.onclick = async () => {
+                            if(confirmOrderBtn.disabled) return;
+                            
+                            // Show processing again for real email sending
+                            confirmOrderBtn.disabled = true;
+                            confirmOrderBtn.innerText = "Sending your wish to your inbox... ✨";
+                            
+                            const recipientEmail = emailInput.value;
+                            const recipientName = document.getElementById('checkout-name').value || "Princess";
+                            
+                            try {
+                                // SEND THE REAL EMAIL
+                                await sendRealEmail(recipientEmail, recipientName);
+                                console.log("Email successfully sent to:", recipientEmail);
+                            } catch (error) {
+                                console.error("Email sending failed:", error);
+                                // Show a visible warning if sending fails
+                                alert("Email sending failed! Error: " + (error.text || error.message || "Unknown error") + "\n\nPlease check your EmailJS settings.");
+                            }
+
                             if(checkoutView && orderConfirmedView) {
                                 checkoutView.style.display = 'none';
                                 orderConfirmedView.style.display = 'block';
@@ -550,3 +593,18 @@ document.addEventListener('touchmove', (e) => {
 
 // (Heart timeline observer removed)
 
+// --- EmailJS Integration Activated ---
+(function(){
+    emailjs.init("MBD_Ss2cr6umocbrI");
+})();
+
+async function sendRealEmail(email, name) {
+    const templateParams = {
+        email: email, // Matches {{email}} in Reply-To
+        name: name,   // Matches {{name}} in the message
+        title: "Happy Birthday My Love! ❤️", // Matches {{title}} in subject
+        message: "Wishing you a birthday as beautiful as your heart. May every dream of yours come true, and may our love grow stronger with every passing second. You are my everything! ❤️✨", // Matches {{message}}
+        time: new Date().toLocaleString() // Matches {{time}} in the template
+    };
+    return emailjs.send('service_x2d2tt8', 'template_9r1wqgh', templateParams);
+}
