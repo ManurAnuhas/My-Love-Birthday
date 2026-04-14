@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Gift Label Generator - Logistics of Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Barcode Library -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <style>
+        :root {
+            --primary: #ff3366;
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #f4f4f4;
+            --stamp: #d63031;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+
+        body {
+            background: #f0f2f5;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 10px rgba(255, 51, 102, 0.1);
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        .input-group label { font-weight: 700; font-size: 0.85rem; color: #777; letter-spacing: 1px; text-transform: uppercase; }
+        .input-group input, .input-group textarea {
+            padding: 14px 18px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            background: #fafafa;
+            width: 100%;
+        }
+        .input-group textarea { height: 80px; resize: none; overflow: hidden; }
+        .input-group input:focus, .input-group textarea:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 10px rgba(255, 51, 102, 0.1); }
+
+        .full-width { grid-column: 1 / -1; }
+
+        /* Shipping Label Style - 4:5 Aspect Ratio (Flexible Height) */
+        .label-preview-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .shipping-label {
+            width: 440px; /* 4 units width */
+            min-height: 550px; /* 5 units -> Base 4:5 ratio */
+            background: white;
+            background-image: 
+                radial-gradient(#eee 1px, transparent 1px),
+                linear-gradient(to right, #ffffff, #fafafa);
+            background-size: 20px 20px, 100% 100%;
+            border: 4px solid black;
+            padding: 0;
+            color: black;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            /* Height is now flexible to prevent clipping */
+        }
+
+        .label-inner { 
+            padding: 25px; 
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .label-header {
+            border-bottom: 4px solid black;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 1.6rem; font-weight: 900; letter-spacing: -1px; line-height: 1; }
+        .service { 
+            font-size: 0.75rem; 
+            font-weight: 900; 
+            border: 3px solid black; 
+            padding: 5px 12px;
+            background: black;
+            color: white;
+        }
+
+        .label-section { border-bottom: 2px solid black; padding: 15px 0; }
+        .label-section:last-child { border-bottom: none; }
+
+        .ship-info { display: flex; gap: 20px; min-height: 140px; flex-shrink: 0; }
+        .ship-info > div { flex: 1; }
+        .ship-from { border-right: 2px solid black; padding-right: 15px; }
+
+        .small-title { font-size: 0.75rem; font-weight: 900; display: block; margin-bottom: 8px; text-decoration: underline; }
+        .details { font-size: 0.95rem; line-height: 1.3; font-weight: 700; overflow-wrap: break-word; word-wrap: break-word; word-break: break-all; }
+
+        .tracking-area { 
+            padding: 20px 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        #barcode {
+            width: 100%;
+            max-width: 380px;
+            height: 90px;
+        }
+
+        .tracking-id { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
+
+        .label-footer { 
+            display: flex; 
+            gap: 20px; 
+            margin-top: auto; 
+            align-items: flex-end;
+            padding-top: 15px;
+        }
+        
+        .qr-placeholder {
+            width: 110px;
+            min-height: 130px;
+            border: 3px solid black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.65rem;
+            font-weight: 900;
+            flex-shrink: 0;
+            background: white;
+        }
+
+        .qr-box { 
+            width: 85px; 
+            height: 85px; 
+            margin: 0 auto 8px auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .footer-right { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+        .note { 
+            font-size: 0.8rem; 
+            line-height: 1.4; 
+            font-style: italic; 
+            font-weight: 700; 
+            border-top: 2px solid #000; 
+            padding-top: 10px;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        /* Stamp Effect */
+        .stamp-seal {
+            position: absolute;
+            top: 25%;
+            right: 8%;
+            width: 95px;
+            height: 95px;
+            border: 3px dashed var(--stamp);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--stamp);
+            font-weight: 900;
+            transform: rotate(25deg);
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 10;
+            filter: blur(0.3px);
+        }
+
+        .stamp-seal::before {
+            content: 'HANDCRAFTED WITH LOVE';
+            font-size: 0.5rem;
+            text-align: center;
+            line-height: 1.2;
+            width: 70px;
+            word-spacing: 120px;
+        }
+
+        .print-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 40px auto 0;
+            padding: 18px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.2);
+        }
+
+        .print-btn:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(255, 51, 102, 0.4); background: #ff1a53; }
+
+        .instructions {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        /* Print Settings */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 0; max-width: none; }
+            .controls, h1, .print-btn, .instructions { display: none; }
+            .label-preview-container { margin: 0; padding: 2cm; }
+            .shipping-label { 
+                width: 12cm; 
+                min-height: 15cm; 
+                margin: 0 auto;
+                border-width: 3px;
+                box-shadow: none;
+                background-image: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Premium Label Generator</h1>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Recipient (To)</label>
+                <input type="text" id="input-to" value="My Beautiful Rabbit 🐰" oninput="updateLabel()">
+            </div>
+            <div class="input-group">
+                <label>Sender (From)</label>
+                <input type="text" id="input-from" value="Manu (Your Love)" oninput="updateLabel()">
+            </div>
+            <div class="input-group full-width">
+                <label>Tracking Number</label>
+                <input type="text" id="input-tracking" value="LOVE-2026-INFINITY" oninput="updateLabel()">
+            </div>
+            <div class="input-group full-width">
+                <label>Special Note / Instructions</label>
+                <textarea id="input-note" oninput="updateLabel()">Fragile. Contains 100% Pure Happiness. Handle with extra kisses.</textarea>
+            </div>
+        </div>
+
+        <div class="label-preview-container">
+            <div class="shipping-label" id="printable-label">
+                <div class="stamp-seal"></div>
+                <div class="label-inner">
+                    <div class="label-header">
+                        <div class="logo">LOGISTICS OF LOVE<br><small style="font-size: 0.6rem; letter-spacing: 2.5px; opacity: 0.8;">WORLDWIDE DELIVERY</small></div>
+                        <div class="service">PRIORITY GIFT</div>
+                    </div>
+
+                    <div class="label-section ship-info">
+                        <div class="ship-from">
+                            <span class="small-title">FROM (SENDER):</span>
+                            <div class="details" id="display-from">Manu (Your Love)<br>123 Heartbeat Lane,<br>The Center of My Universe.</div>
+                        </div>
+                        <div class="ship-to">
+                            <span class="small-title">SHIP TO (RECIPIENT):</span>
+                            <div class="details" id="display-to">My Beautiful Rabbit 🐰<br>Right Next to Me,<br>Forever & Always.</div>
+                        </div>
+                    </div>
+
+                    <div class="label-section tracking-area">
+                        <span class="small-title" style="align-self: flex-start;">TRACKING ID / BARCODE:</span>
+                        <svg id="barcode"></svg>
+                        <div class="tracking-id" id="display-tracking">LOVE-2026-INFINITY</div>
+                    </div>
+
+                    <div class="label-footer">
+                        <div class="qr-placeholder">
+                            <img id="qr-image" class="qr-box" alt="QR Code">
+                            <span>SCAN FOR<br>THE SURPRISE</span>
+                        </div>
+                        <div class="footer-right">
+                            <div class="note" id="display-note">
+                                <strong>NOTE:</strong> Fragile. Contains 100% Pure Happiness. Handle with extra kisses.
+                            </div>
+                            <div style="font-size: 0.6rem; color: #333; font-weight: 900; border-top: 1px dashed #000; padding-top: 6px; letter-spacing: 0.5px;">
+                                VALID FOR INFINITE CUDDLES. NON-REFUNDABLE LOVE. 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="print-btn" onclick="window.print()">Print This Label 🖨️</button>
+        
+        <div class="instructions">
+            <p><strong>Note:</strong> We removed the height limit so your text won't be cut off! If you type a lot, the label will just grow longer.</p>
+        </div>
+    </div>
+
+    <script>
+        function updateLabel() {
+            const to = document.getElementById('input-to').value;
+            const from = document.getElementById('input-from').value;
+            const tracking = document.getElementById('input-tracking').value;
+            const note = document.getElementById('input-note').value;
+
+            // Auto-resize textarea
+            const textarea = document.getElementById('input-note');
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+
+            document.getElementById('display-to').innerHTML = `<strong>${to}</strong><br>Right Next to Me,<br>Forever & Always.`;
+            document.getElementById('display-from').innerHTML = `<strong>${from}</strong><br>123 Heartbeat Lane,<br>The Center of My Universe.`;
+            document.getElementById('display-tracking').innerText = tracking;
+            document.getElementById('display-note').innerHTML = `<strong>NOTE:</strong> ${note}`;
+            
+            // Generate Real Barcode
+            try {
+                JsBarcode("#barcode", tracking, {
+                    format: "CODE128",
+                    lineColor: "#000",
+                    width: 2,
+                    height: 100,
+                    displayValue: false,
+                    margin: 0
+                });
+            } catch (err) {
+                console.error("Barcode generation failed", err);
+            }
+
+            // Update QR code data (Link to the new secret surprise page)
+            const qrImage = document.getElementById('qr-image');
+            const surpriseUrl = window.location.href.replace('label.html', 'surprise.html');
+            const data = encodeURIComponent(surpriseUrl);
+            qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data}`;
+        }
+
+        // Initialize with default data
+        window.onload = updateLabel;
+    </script>
+</body>
+</html>

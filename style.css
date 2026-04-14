@@ -795,9 +795,17 @@ section, header {
     color: #ff3366;
     font-style: italic;
 }
-/* Opening Countdown */
 #countdown-display {
     font-size: 15rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 0 30px rgba(255, 51, 102, 0.8), 0 0 60px rgba(255, 51, 102, 0.4);
+    font-family: 'Great Vibes', cursive;
+    transition: transform 0.5s ease;
+    animation: zoomPulse 1s infinite;
+}
+
+
     font-weight: 700;
     color: white;
     text-shadow: 0 0 30px rgba(255, 51, 102, 0.8), 0 0 60px rgba(255, 51, 102, 0.4);

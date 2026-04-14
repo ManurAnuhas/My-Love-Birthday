@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Secret Surprise ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary: #ff3366;
+            --dark: #0f0a0c;
+            --accent: #ff85a2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--dark);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Animated Background Hearts */
+        .bg-particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: var(--primary);
+            opacity: 0.3;
+            animation: float-up linear infinite;
+        }
+
+        @keyframes float-up {
+            from { transform: translateY(110vh) rotate(0deg) scale(0.5); opacity: 0; }
+            20% { opacity: 0.4; }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(1.5); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .heart-main {
+            font-size: 6rem;
+            animation: heartbeat 1.5s infinite;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px var(--primary));
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 51, 102, 0.5);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slide-up 1s forwards 0.5s;
+        }
+
+        @keyframes slide-up {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .secret-line {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .sub-text {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(255, 51, 102, 0.5); }
+
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.8rem;
+            color: #555;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-particles" id="particles"></div>
+
+    <div class="container">
+        <div class="heart-main">💖</div>
+        <h1>You Found It!</h1>
+        
+        <div class="message-box">
+            <div class="secret-line">The Secret Surprise</div>
+            <p>Every single detail of this gift was chosen with you in mind. You deserve the world and more. I hope this makes you smile as much as you make me smile every day!</p>
+            <div class="sub-text">Hand-packed with 100% Pure Love ❤️</div>
+        </div>
+
+        <button class="btn" onclick="fireWorks()">Celebrate! 🎉</button>
+    </div>
+
+    <div class="footer">MADE WITH LOVE FOR MY RABBIT 🐰</div>
+
+    <audio id="bgm" src="Ed Sheeran - Perfect - LatinHype.mp3" loop autoplay></audio>
+
+    <script>
+        // Floating Heart Particles
+        const container = document.getElementById('particles');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = ['❤️', '💖', '✨', '🌸', '💕'][Math.floor(Math.random() * 5)];
+            
+            const left = Math.random() * 100;
+            const size = Math.random() * 20 + 20;
+            const duration = Math.random() * 5 + 5;
+            
+            heart.style.left = left + 'vw';
+            heart.style.fontSize = size + 'px';
+            heart.style.animationDuration = duration + 's';
+            
+            container.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+
+        setInterval(createHeart, 400);
+
+        function fireWorks() {
+            const duration = 5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+
+                const particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        // Auto fireworks on load
+        window.onload = () => {
+            setTimeout(fireWorks, 1200);
+            
+            // Try to play audio (handling browser auto-play restrictions)
+            const audio = document.getElementById('bgm');
+            if (audio) {
+                audio.volume = 0.5;
+                document.body.addEventListener('click', () => {
+                    audio.play().catch(() => {});
+                }, { once: true });
+            }
+        };
+    </script>
+</body>
+</html>

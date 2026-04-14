@@ -546,6 +546,6 @@ document.addEventListener('touchmove', (e) => {
     setTimeout(() => sparkle.remove(), 800);
 });
 
-// (Heart timeline observer removed)
+
 
 
